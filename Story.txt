@@ -1,0 +1,9 @@
+The purpose of this dataset is to show how climate change and food availability are interconnected, and how both have changed over time. While anomalies have fluctuated only slightly over the decade from 2003 to 2013, there is a small upward trend, and the numbers are all positive. This means that the overall temperature has consistently increased during this time. Meanwhile, food availability has [stayed the same / decreased], indicating that [there is not much correlation / there is an inverse correlation] between food availability and climate change. There is also a third factor to take into account, which is population. Climate change may affect population, which affects food availability. If the population is bigger, the food has to be divided by a greater number of people. In this graph (food per person), we can see how these three factors interacted. In comparison to food availability,
+
+
+Lastly, we examine how these variables differ by country. Different countries may be more affected or less affected by temperatuer anomalies because of geographical location, but also because of different levels of development. If a country is already struggling with food production, climate anomalies may have a greater impact.
+
+Do note that there are unseen confounding variables related to this data. As temperature increases over time countries also progress and make more technological developments, affecting population and food availability. 
+
+smth 
+in the low amount categories, the changes are bigger/smaller/the same compared to other amount categories 
