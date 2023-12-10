@@ -122,6 +122,12 @@ ui <- fluidPage(
             value = 2003,
             sep = "",
           ),
+          selectInput(
+            inputId = "food_country",
+            label = "Choose a country to highlight",
+            choices = joined_df$Country,
+            selected = "",
+          ),
           h6("(*Removed country Côte d'Ivoire due to string error)"),
         ),
         
@@ -135,18 +141,11 @@ ui <- fluidPage(
     tabPanel("Adaptive Strategies",
       sidebarLayout(
         sidebarPanel(
-          sliderInput(
-            inputId = "temp_vs_food",
-            label = "Slide to choose a year",
-            min = 2003,
-            max = 2013,
-            value = 2003,
-            sep = "",
-          ),
           selectInput(
             inputId = "temp_country",
             label = "Choose a country to highlight",
             choices = joined_df$Country,
+            selected = "",
           ),
           h6("(*Removed country Côte d'Ivoire due to string error)"),
         ),
@@ -206,9 +205,11 @@ server <- function(input, output) {
     
     
     food_bar <- ggplot(data = food_per_df, aes(x = kg_food_per_person, y = reorder(Country, -kg_food_per_person), text = Country)) +
-      geom_bar(stat = "identity") +
-      #geom_text(aes(hjust = -0.1, vjust = -0.3)) +
-      labs(x = "Food Per Person (kg)", y = "Country", title = "Food Availability Per Person Of Diffrent Countries In The Selected Year") +
+      geom_col(stat = "identity", aes(fill = ifelse(Country == input$food_country, input$food_country, "Others"))) +
+      geom_text(aes(label = ifelse(Country == input$food_country, Country, ""))) +
+      labs(x = "Food Per Person (kg)", y = "Country",
+           title = "Food Availability Per Person Of Diffrent Countries In The Selected Year",
+           fill = "Country") +
       theme(axis.text = element_text(size = 6)) 
     
     return(food_bar)
@@ -222,16 +223,16 @@ server <- function(input, output) {
     #Round up kg_food_per_person
     food_temp_df$kg_food_per_person <- round(food_temp_df$kg_food_per_person, 2)
     
-    #Filter only the selected year
-    food_temp_df <- filter(food_temp_df, Year == input$temp_vs_food)
+    #Filter only the selected country
+    food_temp_df <- filter(food_temp_df, Country == input$temp_country)
     
-    scat_plot <- ggplot(data = food_temp_df, aes(x = kg_food_per_person, y = Anomaly, text = Country)) +
-      geom_point(aes(color = ifelse(Country == input$temp_country, input$temp_country, "Others"),
-                     size = ifelse(Country == input$temp_country, 0.2, 0.1))) +
-      geom_text(aes(label = ifelse(Country == input$temp_country, Country, ""))) +
-      labs(x = "Food Per Person (kg)", y = "Temperature", color = "Selected Country", title = "Food Availability Vs Temperature Anomaly Of Different Countries In The Selected Year", size = "")
+    scat_plot <- ggplot(data = food_temp_df, aes(x = kg_food_per_person, y = Anomaly)) +
+      geom_line(color = "darkgreen") +
+      geom_text(aes(label = Year)) +
+      labs(x = "Food Per Person (kg)", y = "Temperature (\u00B0C)", color = "Selected Country",
+           title = "Food Availability Vs Temperature Anomaly Of Different Countries In The Selected Year")
     
-    scat_plot <- ggplotly(scat_plot, tooltip = "text")
+    #scat_plot <- ggplotly(scat_plot, tooltip = "text")
     return(scat_plot)
   })
 }
