@@ -46,10 +46,6 @@ ui <- fluidPage(
                p("To answer these questions, we've gathered and analyzed data from diverse sources, including climate datasets and food supply chain
           statistics. By combining and visualizing this information, we aim to provide a comprehensive view of the complex dynamics at play."),
                
-               # Additional Flare - Image
-               img(src = "/Users/tn/Downloads/FinalDeliverable/Climate-Smart-Food-Supply-chain-disruptions-and-water-scarcity-in-focus.jpg", 
-                   height = 300, width = 500, style = "margin-top:20px; margin-bottom:20px;"),
-               
                # Additional Flare - GitHub Link
                h3("Explore Further"),
                p("For a deeper dive into our analysis, explore our GitHub repository. Check out the code, and contribute to the discussion."),
